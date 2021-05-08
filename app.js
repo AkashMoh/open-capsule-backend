@@ -1,17 +1,20 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import Cors from 'cors'
 
+//
 import participants from './routers/participants.js'
 
 //Set mongodb url and port
-const mongoURL = 'mongodb+srv://opcap-backend-user:OpenCapsule4@open-capsule.yv6xt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const mongoURL = 'mongodb+srv://opcap-backend-user:OpenCapsule4@open-capsule.yv6xt.mongodb.net/open-capsule-db?retryWrites=true&w=majority'
 const port = process.env.PORT || 3001;
 
 //Start express
 const app = express()
 
 //Say all form of data in and out is of json format
-app.use(express.json());
+app.use(express.json())
+app.use(Cors())
 
 //Connect to mongodb
 mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true})

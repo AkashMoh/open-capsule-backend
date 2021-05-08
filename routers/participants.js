@@ -1,7 +1,7 @@
 import express from 'express'
 let router = express.Router()
 
-import Participant from '../models/participant.js'
+import Participant from '../models/participantModel.js'
 
 // get all participants
 router.get('/', async(req, res) => {
