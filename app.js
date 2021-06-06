@@ -2,8 +2,9 @@ import express from 'express'
 import mongoose from 'mongoose'
 import Cors from 'cors'
 
-//
+//get /participant router
 import participants from './routers/participants.js'
+import products from './routers/products.js'
 
 //Set mongodb url and port
 const mongoURL = 'mongodb+srv://opcap-backend-user:OpenCapsule4@open-capsule.yv6xt.mongodb.net/open-capsule-db?retryWrites=true&w=majority'
@@ -33,6 +34,9 @@ app.get('/', (req, res) => {
 
 //Routes from participants.js file
 app.use('/participants', participants);
+
+//Routes from products.js 
+app.use('/products', products);
 
 
 //Listen to port
