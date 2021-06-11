@@ -3,9 +3,21 @@ let router = express.Router()
 
 import Products from '../models/productModel.js'
 
-router.get('/', async(req,res) => {
+router.get('/allproducts', async(req,res) => {
     try{
         const products = await Products.find()
+        res.status(200).send(products)
+    } catch(err){
+        res.status(500).send('Error' + err)
+    }
+})
+
+
+router.get('/', async(req, res) => {
+    try{
+        let address = req.query.address;
+
+        const products = await Products.find({company_address: address})
         res.status(200).send(products)
     } catch(err){
         res.status(500).send('Error' + err)
