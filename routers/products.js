@@ -36,6 +36,19 @@ router.post('/', async(req,res) => {
     })
 })
 
+router.post('/update', async(req, res) => {
+    try{
+        let id = req.body.id;
+        let value = {unit_end: req.body.updatedQuantity}
+        const result = await Products.updateOne({ _id: id }, { $set: value })
+        res.send(result)
+    } catch(err){
+        res.send(req.body)
+        res.status(500).send('Update cannot be performed' + err)
+        
+    }
+})
+
 // router.post('/', async(req,res) => {
 //     const productData = req.body;
 
