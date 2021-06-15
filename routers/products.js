@@ -5,7 +5,9 @@ import Products from '../models/productModel.js'
 
 router.get('/allproducts', async(req,res) => {
     try{
-        const products = await Products.find()
+        let address = req.query.address;
+
+        const products = await Products.find({company_address: { $ne: address }})
         res.status(200).send(products)
     } catch(err){
         res.status(500).send('Error' + err)
