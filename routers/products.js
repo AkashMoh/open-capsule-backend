@@ -51,16 +51,4 @@ router.post('/update', async(req, res) => {
     }
 })
 
-// router.post('/', async(req,res) => {
-//     const productData = req.body;
-
-//     Products.insertOne(productData, (err, data) => {
-//         if(err){
-//             res.status(500).send(err)
-//         } else {
-//             res.status(201).send(data)
-//         }
-//     })
-// })
-
 export default router;

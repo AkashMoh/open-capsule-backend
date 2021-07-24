@@ -6,6 +6,7 @@ import Cors from 'cors'
 import participants from './routers/participants.js'
 import products from './routers/products.js'
 import history from './routers/history.js'
+import dashboard from './routers/dashboard.js'
 
 //Set mongodb url and port
 const mongoURL = 'mongodb+srv://opcap-backend-user:OpenCapsule4@open-capsule.yv6xt.mongodb.net/open-capsule-db?retryWrites=true&w=majority'
@@ -41,6 +42,9 @@ app.use('/products', products);
 
 //Routes for history data
 app.use('/history', history);
+
+//Routes for Dashboard
+app.use('/dashboard', dashboard);
 
 //Listen to port
 app.listen(port, () => {
