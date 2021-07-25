@@ -26,21 +26,23 @@ router.post('/', async(req,res) => {
     })
 })
 
-router.put('/', async(req,res) => {
-    try {
-        const updateDetails = req.body;
-        const updateDoc = {
-        "sales": {
-            "today": req.body.sales,
-            "month": req.body.month,
-            "year": req.body.year,
-            },
+router.post('/updateInventory', async(req,res) => {
+    
+        const address = req.body.address;
+        const name = req.body.name;
+        const quantity = req.body.quantity;
+
+        const inventorySchema = {
+            "name": name,
+            "quantity": quantity,
         }
-        const result = await Products.updateOne({ address: updateDetails.address }, updateDoc)
-        res.send(result)
-    } catch {
-        res.status(500).send('Update cannot be performed' + err)
-    }
+        Dashboard.updateOne({ "address": address }, {$push: {"inventory": inventorySchema}}, (err,data) => {
+            if(err){
+                res.status(500).send(err)
+            } else {
+                res.status(201).send(data)
+            }
+        })
 })
 
 export default router;
