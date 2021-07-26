@@ -27,22 +27,37 @@ router.post('/', async(req,res) => {
 })
 
 router.post('/updateInventory', async(req,res) => {
-    
-        const address = req.body.address;
-        const name = req.body.name;
-        const quantity = req.body.quantity;
+    const address = req.body.address;
+    const name = req.body.name;
+    const quantity = req.body.quantity;
 
-        const inventorySchema = {
-            "name": name,
-            "quantity": quantity,
+    const inventorySchema = {
+        "name": name,
+        "quantity": quantity,
+    }
+    Dashboard.updateOne({ "address": address }, {$push: {"inventory": inventorySchema}}, (err,data) => {
+        if(err){
+            res.status(500).send(err)
+        } else {
+            res.status(201).send(data)
         }
-        Dashboard.updateOne({ "address": address }, {$push: {"inventory": inventorySchema}}, (err,data) => {
+    })
+})
+
+router.post('/editInventory', async(req,res) => {
+    const address = req.body.address;
+    const name = req.body.name;
+    const quantity = req.body.quantity;
+    Dashboard.updateOne(
+        { "address": address, "inventory.name": name },
+        { $set: { "inventory.$.quantity": quantity }}, (err,data) => {
             if(err){
                 res.status(500).send(err)
             } else {
                 res.status(201).send(data)
             }
-        })
+        }
+    )
 })
 
 export default router;
