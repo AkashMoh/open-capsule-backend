@@ -35,7 +35,9 @@ router.post('/updateInventory', async(req,res) => {
         "name": name,
         "quantity": quantity,
     }
-    Dashboard.updateOne({ "address": address }, {$push: {"inventory": inventorySchema}}, (err,data) => {
+    Dashboard.replaceOne({ "address": address }, 
+                        {$push: {"inventory": inventorySchema}}, 
+                        { "upsert": true }, (err,data) => {
         if(err){
             res.status(500).send(err)
         } else {
@@ -50,7 +52,7 @@ router.post('/editInventory', async(req,res) => {
     const quantity = req.body.quantity;
     Dashboard.updateOne(
         { "address": address, "inventory.name": name },
-        { $addToSet: { "inventory.$.quantity": quantity }}, (err,data) => {
+        { $set: { "inventory.$.quantity": quantity }}, (err,data) => {
             if(err){
                 res.status(500).send(err)
             } else {
