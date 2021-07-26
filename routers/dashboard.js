@@ -50,7 +50,7 @@ router.post('/editInventory', async(req,res) => {
     const quantity = req.body.quantity;
     Dashboard.updateOne(
         { "address": address, "inventory.name": name },
-        { $set: { "inventory.$.quantity": quantity }}, (err,data) => {
+        { $addToSet: { "inventory.$.quantity": quantity }}, (err,data) => {
             if(err){
                 res.status(500).send(err)
             } else {
